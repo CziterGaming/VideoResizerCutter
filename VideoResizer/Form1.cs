@@ -5,9 +5,7 @@ using MediaToolkit;
 using MediaToolkit.Options;
 using System.IO;
 using System.Diagnostics;
-using System.Globalization;
 using System.Threading;
-using System.Linq;
 using System.Collections.Generic;
 
 namespace VideoResizer
