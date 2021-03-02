@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{00C0708A-9A03-46E0-9940-4E9C66BA3F95}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>testName</RootNamespace>
-    <AssemblyName>testName</AssemblyName>
+    <RootNamespace>VideoResizer</RootNamespace>
+    <AssemblyName>VideoResizer</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -77,6 +77,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
