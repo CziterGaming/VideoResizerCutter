@@ -1,4 +1,4 @@
-# VideoResizer
+# VideoResizerCutter
  Resize your video to 720p or 480p.
  You can also cut your video.
 
