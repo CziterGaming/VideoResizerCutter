@@ -22,6 +22,9 @@ namespace VideoResizerCutter
         List<string> InputFilePathWithoutFile = new List<string>();
         List<string> fileSizes = new List<string>();
         bool isEditingEnabled;
+        int width;
+        int height;
+        bool iscustomResolutionEnabled = false;
 
         ContextMenuStrip contextMenuStrip1 = new ContextMenuStrip();
         private ConversionOptions conversionOptions;
@@ -166,6 +169,21 @@ namespace VideoResizerCutter
 
                 ConOptions();
 
+                if (iscustomResolutionEnabled)
+                {
+                    if (width == 0 || height == 0)
+                    {
+                        MessageBox.Show("One of resolution variables is 0 or null.");
+                        iscustomResolutionEnabled = false;
+                        progressBar1.Value = 0;
+                        label6.Visible = false;
+                        label7.Visible = false;
+                        label9.Visible = false;
+                        progressBar1.Visible = false;
+                        return;
+                    }
+                }
+
                 using (var engine = new Engine())
                 {
                     engine.ConvertProgressEvent += ConvertProgressEvent;
@@ -230,7 +248,7 @@ namespace VideoResizerCutter
             float progressbar = (float)e.ProcessedDuration.TotalMilliseconds / (float)e.TotalDuration.TotalMilliseconds * 100;
             progressBar1.Value = (int)progressbar;
             label7.Text = "File size: " + e.SizeKb + "Kb";
-            label9.Text = (int)e.ProcessedDuration.TotalSeconds + "s / " + (int)e.TotalDuration.TotalSeconds + "s";
+            label9.Text = (int)e.ProcessedDuration.TotalSeconds + " / " + (int)e.TotalDuration.TotalSeconds;
         }
 
         public void ConOptions()
@@ -307,6 +325,41 @@ namespace VideoResizerCutter
                 else if (!isEditingEnabled)
                 {
                     def480pConv();
+                }
+                else
+                {
+                    MessageBox.Show("error.");
+                    Environment.Exit(0);
+                }
+            }
+            else if (radioButton3.Checked)
+            {
+                iscustomResolutionEnabled = true;
+
+                CustomRes customRes = new CustomRes(this);
+                customRes.ShowDialog();
+
+                if (isEditingEnabled)
+                {
+                    conversionOptions = new ConversionOptions
+                    {
+                        CustomHeight = height,
+                        CustomWidth = width,
+                        VideoSize = VideoSize.Custom,
+                        AudioSampleRate = AudioSampleRate.Hz44100
+                    };
+
+                    conversionOptions.CutMedia(TimeSpan.FromSeconds(firstCut), TimeSpan.FromSeconds(secondCut));
+                }
+                else if (!isEditingEnabled)
+                {
+                    conversionOptions = new ConversionOptions
+                    {
+                        CustomHeight = height,
+                        CustomWidth = width,
+                        VideoSize = VideoSize.Custom,
+                        AudioSampleRate = AudioSampleRate.Hz44100
+                    };
                 }
                 else
                 {
@@ -400,6 +453,17 @@ namespace VideoResizerCutter
             label12.Visible = false;
             label10.Visible = false;
             isEditingEnabled = false;
+        }
+
+        public void setResolution(string width, string height)
+        {
+            if(String.IsNullOrEmpty(width) || String.IsNullOrEmpty(height))
+            {
+                this.width = 0;
+                this.height = 0;
+            }
+            this.width = Convert.ToInt32(width);
+            this.height = Convert.ToInt32(height);
         }
     }
 }
