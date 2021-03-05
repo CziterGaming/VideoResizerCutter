@@ -1,6 +1,9 @@
 # VideoResizerCutter
  Resize your video to 720p or 480p.
  You can also cut your video.
+ 
+ V1.0.1.3
+ + Custom resolution setting.
 
 You can download it [here](https://github.com/CziterGaming/VideoResizer/releases/tag/V1.0.1.0).
 
