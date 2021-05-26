@@ -1,5 +1,5 @@
 # VideoResizerCutter
- Resize your video to 720p or 480p.
+ Resize your video to whatever you want!
  You can also cut your video.
  
  V1.0.1.3
